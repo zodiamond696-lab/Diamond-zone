@@ -2,178 +2,173 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Diamond Manager</title>
+  <title>Manajemen Top Up Diamond</title>
   <style>
     body {
-      margin: 0; font-family: 'Segoe UI', sans-serif; background:#f4f6fb; color:#333;
+      font-family: "Poppins", sans-serif;
+      margin: 0; padding: 0;
+      background: linear-gradient(135deg, #2b4eff, #00c6ff);
+      color: #333;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    h1 {
+      text-align: center;
+      color: #2b4eff;
+      margin-bottom: 20px;
+    }
+    .form-group {
       display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+      justify-content: center;
     }
-    /* Sidebar */
-    .sidebar {
-      width: 230px; background:#1e2a55; color:white; min-height:100vh;
-      position: fixed; top:0; left:0; padding-top:20px;
-    }
-    .sidebar h2 {
-      text-align:center; margin-bottom:30px; font-size:20px; letter-spacing:1px;
-    }
-    .sidebar a {
-      display:flex; align-items:center; gap:10px;
-      padding:12px 20px; color:white; text-decoration:none; transition:0.3s; font-size:15px;
-    }
-    .sidebar a:hover { background:#2b4eff; border-radius:5px; }
-
-    /* Main Content */
-    .main {
-      margin-left:230px; padding:25px; flex:1;
-    }
-    h1 { color:#1e2a55; margin-bottom:10px; }
-
-    /* Dashboard Cards */
-    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin:20px 0; }
-    .card {
-      background:white; padding:20px; border-radius:12px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.08); text-align:center;
-    }
-    .card h3 { margin:0; font-size:16px; color:#666; }
-    .card p { font-size:24px; font-weight:bold; color:#2b4eff; margin:5px 0 0; }
-
-    /* Form */
-    .form {
-      background:white; padding:20px; border-radius:12px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.08); margin-bottom:20px;
-    }
-    .form h3 { margin-top:0; margin-bottom:15px; color:#1e2a55; }
-    .form-grid {
-      display:grid; grid-template-columns:1fr 1fr 1fr 120px; gap:12px;
-    }
-    select, input, button {
-      padding:10px; border:1px solid #ccc; border-radius:8px; font-size:14px;
+    select, input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      flex: 1;
     }
     button {
-      background:#2b4eff; color:white; cursor:pointer; border:none; font-weight:bold;
+      padding: 10px 20px;
+      background: #2b4eff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    button:hover { background:#1c36b0; }
-
-    /* Table */
+    button:hover {
+      background: #1c36b0;
+    }
     table {
-      width:100%; border-collapse: collapse; background:white;
-      box-shadow:0 4px 12px rgba(0,0,0,0.08); border-radius:12px; overflow:hidden;
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
     }
     th, td {
-      padding:14px; text-align:center; border-bottom:1px solid #eee;
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
     }
     th {
-      background:#2b4eff; color:white; font-size:14px;
+      background: #2b4eff;
+      color: white;
     }
-    tr:hover { background:#f8faff; }
-
-    .export-btn {
-      margin-top:15px; padding:12px 20px; border-radius:8px; font-size:14px;
+    .total-box {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+      background: #f1f5ff;
+      padding: 15px;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h2>💎 Diamond Zone</h2>
-    <a href="#">📊 Dashboard</a>
-    <a href="#">💰 Transaksi</a>
-    <a href="#">📑 Laporan</a>
-  </div>
+  <div class="container">
+    <h1>💎 Manajemen Top Up Diamond</h1>
 
-  <!-- Main -->
-  <div class="main">
-    <h1>📊 Dashboard Top Up Diamond</h1>
-    <p>Kelola transaksi penjualan top up diamond dengan mudah.</p>
-
-    <!-- Dashboard Cards -->
-    <div class="cards">
-      <div class="card">
-        <h3>Total Penjualan</h3>
-        <p>Rp <span id="totalPenjualan">0</span></p>
-      </div>
-      <div class="card">
-        <h3>Laba Bersih</h3>
-        <p>Rp <span id="labaBersih">0</span></p>
-      </div>
+    <div class="form-group">
+      <select id="game">
+        <option value="">-- Pilih Game --</option>
+        <option>Free Fire</option>
+        <option>Roblox</option>
+        <option>Mobile Legends</option>
+        <option>PUBG Mobile</option>
+        <option>CODM</option>
+        <option>FC Mobile</option>
+        <option>Honor of Kings</option>
+        <option>Guardian Tales</option>
+        <option>Super Sus</option>
+        <option>Stumble Guys</option>
+        <option>Genshin Impact</option>
+        <option>Honkai: Star Rail</option>
+        <option>Magic Chess Go Go</option>
+        <option>League of Legends</option>
+        <option>Valorant</option>
+      </select>
+      <input type="number" id="jumlah" placeholder="Jumlah Diamond">
+      <input type="number" id="modal" placeholder="Harga Modal (Rp)">
+      <input type="number" id="jual" placeholder="Harga Jual (Rp)">
+      <button onclick="tambahTransaksi()">Tambah</button>
     </div>
 
-    <!-- Form -->
-    <div class="form">
-      <h3>Tambah Transaksi</h3>
-      <div class="form-grid">
-        <select id="game">
-          <option value="">-- Pilih Game --</option>
-          <option value="Free Fire">Free Fire</option>
-          <option value="Roblox">Roblox</option>
-          <option value="Mobile Legends">Mobile Legends</option>
-          <option value="PUBG Mobile">PUBG Mobile</option>
-          <option value="CODM">Call of Duty Mobile</option>
-          <option value="FC Mobile">FC Mobile</option>
-          <option value="Honor of Kings">Honor of Kings</option>
-          <option value="Guardian Tales">Guardian Tales</option>
-          <option value="Super Sus">Super Sus</option>
-          <option value="Stumble Guys">Stumble Guys</option>
-          <option value="Genshin Impact">Genshin Impact</option>
-          <option value="Honkai Star Rail">Honkai Star Rail</option>
-          <option value="Magic Chess Go Go">Magic Chess Go Go</option>
-          <option value="League of Legends">League of Legends</option>
-          <option value="Valorant">Valorant</option>
-        </select>
-        <input type="number" id="jumlah" placeholder="Jumlah Diamond">
-        <input type="number" id="harga" placeholder="Harga per Diamond">
-        <button onclick="tambahTransaksi()">Tambah</button>
-      </div>
-    </div>
-
-    <!-- Table -->
     <table id="tabel">
       <thead>
         <tr>
           <th>Game</th>
           <th>Jumlah Diamond</th>
-          <th>Harga per Diamond</th>
-          <th>Total Harga</th>
+          <th>Harga Modal</th>
+          <th>Harga Jual</th>
+          <th>Total Modal</th>
+          <th>Total Jual</th>
+          <th>Untung</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
 
-    <button class="export-btn" onclick="exportExcel()">⬇ Export ke Excel</button>
+    <div class="total-box">
+      💰 Total Modal: Rp <span id="totalModal">0</span><br>
+      📈 Total Penjualan: Rp <span id="totalPenjualan">0</span><br>
+      🏆 Total Untung: Rp <span id="totalUntung">0</span>
+    </div>
+
+    <button onclick="exportExcel()">📤 Export ke Excel</button>
   </div>
 
-  <!-- Script -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script>
+    let totalModal = 0;
     let totalPenjualan = 0;
+    let totalUntung = 0;
 
     function tambahTransaksi() {
       const game = document.getElementById("game").value;
       const jumlah = parseInt(document.getElementById("jumlah").value);
-      const harga = parseInt(document.getElementById("harga").value);
+      const modal = parseInt(document.getElementById("modal").value);
+      const jual = parseInt(document.getElementById("jual").value);
 
-      if (!game || isNaN(jumlah) || isNaN(harga)) {
+      if (!game || isNaN(jumlah) || isNaN(modal) || isNaN(jual)) {
         alert("Isi semua data dengan benar!");
         return;
       }
 
-      const total = jumlah * harga;
-      totalPenjualan += total;
+      const totalM = jumlah * modal;
+      const totalJ = jumlah * jual;
+      const untung = totalJ - totalM;
+
+      totalModal += totalM;
+      totalPenjualan += totalJ;
+      totalUntung += untung;
 
       const table = document.getElementById("tabel").getElementsByTagName("tbody")[0];
       const row = table.insertRow();
       row.insertCell(0).innerText = game;
       row.insertCell(1).innerText = jumlah;
-      row.insertCell(2).innerText = "Rp " + harga.toLocaleString();
-      row.insertCell(3).innerText = "Rp " + total.toLocaleString();
+      row.insertCell(2).innerText = "Rp " + modal.toLocaleString();
+      row.insertCell(3).innerText = "Rp " + jual.toLocaleString();
+      row.insertCell(4).innerText = "Rp " + totalM.toLocaleString();
+      row.insertCell(5).innerText = "Rp " + totalJ.toLocaleString();
+      row.insertCell(6).innerText = "Rp " + untung.toLocaleString();
 
+      document.getElementById("totalModal").innerText = totalModal.toLocaleString();
       document.getElementById("totalPenjualan").innerText = totalPenjualan.toLocaleString();
-      document.getElementById("labaBersih").innerText = totalPenjualan.toLocaleString(); // sementara pengeluaran = 0
+      document.getElementById("totalUntung").innerText = totalUntung.toLocaleString();
 
-      // reset input
       document.getElementById("game").value = "";
       document.getElementById("jumlah").value = "";
-      document.getElementById("harga").value = "";
+      document.getElementById("modal").value = "";
+      document.getElementById("jual").value = "";
     }
 
     function exportExcel() {
