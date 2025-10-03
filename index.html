@@ -1,124 +1,185 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Keuangan Bisnis Diamond zone</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <title>Diamond Manager</title>
+  <style>
+    body {
+      margin: 0; font-family: 'Segoe UI', sans-serif; background:#f4f6fb; color:#333;
+      display: flex;
+    }
+    /* Sidebar */
+    .sidebar {
+      width: 230px; background:#1e2a55; color:white; min-height:100vh;
+      position: fixed; top:0; left:0; padding-top:20px;
+    }
+    .sidebar h2 {
+      text-align:center; margin-bottom:30px; font-size:20px; letter-spacing:1px;
+    }
+    .sidebar a {
+      display:flex; align-items:center; gap:10px;
+      padding:12px 20px; color:white; text-decoration:none; transition:0.3s; font-size:15px;
+    }
+    .sidebar a:hover { background:#2b4eff; border-radius:5px; }
+
+    /* Main Content */
+    .main {
+      margin-left:230px; padding:25px; flex:1;
+    }
+    h1 { color:#1e2a55; margin-bottom:10px; }
+
+    /* Dashboard Cards */
+    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin:20px 0; }
+    .card {
+      background:white; padding:20px; border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08); text-align:center;
+    }
+    .card h3 { margin:0; font-size:16px; color:#666; }
+    .card p { font-size:24px; font-weight:bold; color:#2b4eff; margin:5px 0 0; }
+
+    /* Form */
+    .form {
+      background:white; padding:20px; border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08); margin-bottom:20px;
+    }
+    .form h3 { margin-top:0; margin-bottom:15px; color:#1e2a55; }
+    .form-grid {
+      display:grid; grid-template-columns:1fr 1fr 1fr 120px; gap:12px;
+    }
+    select, input, button {
+      padding:10px; border:1px solid #ccc; border-radius:8px; font-size:14px;
+    }
+    button {
+      background:#2b4eff; color:white; cursor:pointer; border:none; font-weight:bold;
+    }
+    button:hover { background:#1c36b0; }
+
+    /* Table */
+    table {
+      width:100%; border-collapse: collapse; background:white;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08); border-radius:12px; overflow:hidden;
+    }
+    th, td {
+      padding:14px; text-align:center; border-bottom:1px solid #eee;
+    }
+    th {
+      background:#2b4eff; color:white; font-size:14px;
+    }
+    tr:hover { background:#f8faff; }
+
+    .export-btn {
+      margin-top:15px; padding:12px 20px; border-radius:8px; font-size:14px;
+    }
+  </style>
 </head>
 <body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>💎 Diamond Zone</h2>
+    <a href="#">📊 Dashboard</a>
+    <a href="#">💰 Transaksi</a>
+    <a href="#">📑 Laporan</a>
+  </div>
 
-    <aside id="sidebar">
-        <div class="logo">FINANCE APP</div>
-        <nav>
-            <a href="#dashboard" class="active" data-section="dashboard">📊 Dashboard</a>
-            <a href="#penjualan" data-section="penjualan">🛒 Penjualan</a>
-            <a href="#pendapatan" data-section="pendapatan">💰 Pendapatan</a>
-            <a href="#pengeluaran" data-section="pengeluaran">💸 Pengeluaran</a>
-            <a href="#laporan" data-section="laporan">📄 Laporan (Export)</a>
-        </nav>
-    </aside>
+  <!-- Main -->
+  <div class="main">
+    <h1>📊 Dashboard Top Up Diamond</h1>
+    <p>Kelola transaksi penjualan top up diamond dengan mudah.</p>
 
-    <main id="main-content">
-        <section id="dashboard" class="content-section active">
-            <h1>Dashboard Keuangan</h1>
-            <div class="summary-cards">
-                <div class="card card-penjualan">
-                    <p>Total Penjualan</p>
-                    <h2 id="total-penjualan">Rp 0</h2>
-                </div>
-                <div class="card card-pendapatan">
-                    <p>Total Pendapatan (Termasuk Penjualan)</p>
-                    <h2 id="total-pendapatan">Rp 0</h2>
-                </div>
-                <div class="card card-pengeluaran">
-                    <p>Total Pengeluaran</p>
-                    <h2 id="total-pengeluaran">Rp 0</h2>
-                </div>
-                <div class="card card-laba">
-                    <p>Laba Bersih</p>
-                    <h2 id="laba-bersih">Rp 0</h2>
-                </div>
-            </div>
-            
-            <div class="chart-container">
-                <h2>Grafik Penjualan Bulanan</h2>
-                <canvas id="salesChart"></canvas>
-            </div>
-        </section>
+    <!-- Dashboard Cards -->
+    <div class="cards">
+      <div class="card">
+        <h3>Total Penjualan</h3>
+        <p>Rp <span id="totalPenjualan">0</span></p>
+      </div>
+      <div class="card">
+        <h3>Laba Bersih</h3>
+        <p>Rp <span id="labaBersih">0</span></p>
+      </div>
+    </div>
 
-        <section id="penjualan" class="content-section hidden">
-            <h2>Input Data Penjualan</h2>
-            <form id="form-penjualan" class="input-form">
-                <input type="date" id="tgl-penjualan" required>
-                <input type="text" id="produk" placeholder="Nama Produk" required>
-                <input type="number" id="jumlah-produk" placeholder="Jumlah Produk" min="1" required>
-                <input type="number" id="harga-satuan" placeholder="Harga Satuan (Rp)" min="0" required>
-                <input type="text" id="total-harga" placeholder="Total Harga (Otomatis)" readonly>
-                <button type="submit" class="btn-primary">Tambah Penjualan</button>
-            </form>
+    <!-- Form -->
+    <div class="form">
+      <h3>Tambah Transaksi</h3>
+      <div class="form-grid">
+        <select id="game">
+          <option value="">-- Pilih Game --</option>
+          <option value="Free Fire">Free Fire</option>
+          <option value="Roblox">Roblox</option>
+          <option value="Mobile Legends">Mobile Legends</option>
+          <option value="PUBG Mobile">PUBG Mobile</option>
+          <option value="CODM">Call of Duty Mobile</option>
+          <option value="FC Mobile">FC Mobile</option>
+          <option value="Honor of Kings">Honor of Kings</option>
+          <option value="Guardian Tales">Guardian Tales</option>
+          <option value="Super Sus">Super Sus</option>
+          <option value="Stumble Guys">Stumble Guys</option>
+          <option value="Genshin Impact">Genshin Impact</option>
+          <option value="Honkai Star Rail">Honkai Star Rail</option>
+          <option value="Magic Chess Go Go">Magic Chess Go Go</option>
+          <option value="League of Legends">League of Legends</option>
+          <option value="Valorant">Valorant</option>
+        </select>
+        <input type="number" id="jumlah" placeholder="Jumlah Diamond">
+        <input type="number" id="harga" placeholder="Harga per Diamond">
+        <button onclick="tambahTransaksi()">Tambah</button>
+      </div>
+    </div>
 
-            <h3>Riwayat Penjualan</h3>
-            <table id="table-penjualan" class="data-table">
-                <thead>
-                    <tr><th>Tanggal</th><th>Produk</th><th>Jumlah</th><th>Harga Total</th><th>Aksi</th></tr>
-                </thead>
-                <tbody>
-                    </tbody>
-            </table>
-        </section>
+    <!-- Table -->
+    <table id="tabel">
+      <thead>
+        <tr>
+          <th>Game</th>
+          <th>Jumlah Diamond</th>
+          <th>Harga per Diamond</th>
+          <th>Total Harga</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-        <section id="pendapatan" class="content-section hidden">
-            <h2>Input Data Pendapatan Tambahan</h2>
-            <form id="form-pendapatan" class="input-form">
-                <input type="date" id="tgl-pendapatan" required>
-                <input type="text" id="sumber-pendapatan" placeholder="Sumber Pendapatan (Contoh: Bunga bank)" required>
-                <input type="number" id="jumlah-pendapatan" placeholder="Jumlah (Rp)" min="0" required>
-                <button type="submit" class="btn-primary">Tambah Pendapatan</button>
-            </form>
+    <button class="export-btn" onclick="exportExcel()">⬇ Export ke Excel</button>
+  </div>
 
-            <h3>Riwayat Pendapatan Tambahan</h3>
-            <table id="table-pendapatan" class="data-table">
-                <thead>
-                    <tr><th>Tanggal</th><th>Sumber</th><th>Jumlah</th><th>Aksi</th></tr>
-                </thead>
-                <tbody>
-                    </tbody>
-            </table>
-        </section>
-        
-        <section id="pengeluaran" class="content-section hidden">
-            <h2>Input Data Pengeluaran</h2>
-            <form id="form-pengeluaran" class="input-form">
-                <input type="date" id="tgl-pengeluaran" required>
-                <input type="text" id="keterangan-pengeluaran" placeholder="Keterangan (Contoh: Gaji Karyawan)" required>
-                <input type="number" id="jumlah-pengeluaran" placeholder="Jumlah (Rp)" min="0" required>
-                <button type="submit" class="btn-primary">Tambah Pengeluaran</button>
-            </form>
+  <!-- Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script>
+    let totalPenjualan = 0;
 
-            <h3>Riwayat Pengeluaran</h3>
-            <table id="table-pengeluaran" class="data-table">
-                <thead>
-                    <tr><th>Tanggal</th><th>Keterangan</th><th>Jumlah</th><th>Aksi</th></tr>
-                </thead>
-                <tbody>
-                    </tbody>
-            </table>
-        </section>
+    function tambahTransaksi() {
+      const game = document.getElementById("game").value;
+      const jumlah = parseInt(document.getElementById("jumlah").value);
+      const harga = parseInt(document.getElementById("harga").value);
 
-        <section id="laporan" class="content-section hidden">
-            <h2>Laporan & Export Data</h2>
-            <p>Silakan pilih jenis data yang ingin Anda export:</p>
-            <div class="flex-actions">
-                <button class="btn-export" onclick="exportData('penjualan')">Export Penjualan (CSV)</button>
-                <button class="btn-export" onclick="exportData('pendapatan')">Export Pendapatan (CSV)</button>
-                <button class="btn-export" onclick="exportData('pengeluaran')">Export Pengeluaran (CSV)</button>
-            </div>
-            <p class="mt-4 text-sm text-gray-600">*Catatan: Karena keterbatasan, fitur export ini dibuat dalam format CSV sederhana.</p>
-        </section>
-    </main>
+      if (!game || isNaN(jumlah) || isNaN(harga)) {
+        alert("Isi semua data dengan benar!");
+        return;
+      }
 
-    <script src="script.js"></script>
+      const total = jumlah * harga;
+      totalPenjualan += total;
+
+      const table = document.getElementById("tabel").getElementsByTagName("tbody")[0];
+      const row = table.insertRow();
+      row.insertCell(0).innerText = game;
+      row.insertCell(1).innerText = jumlah;
+      row.insertCell(2).innerText = "Rp " + harga.toLocaleString();
+      row.insertCell(3).innerText = "Rp " + total.toLocaleString();
+
+      document.getElementById("totalPenjualan").innerText = totalPenjualan.toLocaleString();
+      document.getElementById("labaBersih").innerText = totalPenjualan.toLocaleString(); // sementara pengeluaran = 0
+
+      // reset input
+      document.getElementById("game").value = "";
+      document.getElementById("jumlah").value = "";
+      document.getElementById("harga").value = "";
+    }
+
+    function exportExcel() {
+      const wb = XLSX.utils.table_to_book(document.getElementById("tabel"), {sheet:"Laporan"});
+      XLSX.writeFile(wb, "laporan_topup.xlsx");
+    }
+  </script>
 </body>
 </html>
