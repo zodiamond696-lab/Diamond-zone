@@ -2,179 +2,98 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Manajemen Top Up Diamond</title>
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      margin: 0; padding: 0;
-      background: linear-gradient(135deg, #00c6ff, #2b4eff);
-      color: #333;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 40px auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    }
-    h1 {
-      text-align: center;
-      color: #2b4eff;
-      margin-bottom: 25px;
-    }
-    .form-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 20px;
-      justify-content: center;
-    }
-    select, input {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-      flex: 1;
-    }
-    button {
-      padding: 10px 20px;
-      background: #2b4eff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #1c36b0;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      padding: 12px;
-      border: 1px solid #ddd;
-      text-align: center;
-    }
-    th {
-      background: #2b4eff;
-      color: white;
-    }
-    .total-box {
-      margin-top: 25px;
-      font-weight: bold;
-      font-size: 18px;
-      background: #f1f5ff;
-      padding: 15px;
-      border-radius: 10px;
-    }
-  </style>
+  <title>Manajemen Top Up Diamond zone</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>💎 Manajemen Top Up Diamond</h1>
+    <h1>💎 Manajemen Top Up Diamond zone</h1>
 
-    <div class="form-group">
-      <select id="game">
-        <option value="">-- Pilih Game --</option>
-        <option>Free Fire</option>
-        <option>Roblox</option>
-        <option>Mobile Legends</option>
-        <option>PUBG Mobile</option>
-        <option>CODM</option>
-        <option>FC Mobile</option>
-        <option>Honor of Kings</option>
-        <option>Guardian Tales</option>
-        <option>Super Sus</option>
-        <option>Stumble Guys</option>
-        <option>Genshin Impact</option>
-        <option>Honkai: Star Rail</option>
-        <option>Magic Chess Go Go</option>
-        <option>League of Legends</option>
-        <option>Valorant</option>
-      </select>
-      <input type="number" id="jumlah" placeholder="Jumlah Diamond">
-      <input type="number" id="supplier" placeholder="Harga Supplier (Rp)">
-      <input type="number" id="penjualan" placeholder="Harga Penjualan (Rp)">
-      <button onclick="tambahTransaksi()">Tambah</button>
+    <!-- Menu Navigasi -->
+    <nav>
+      <button onclick="showPage('transaksi')">Transaksi</button>
+      <button onclick="showPage('pengeluaran')">Pengeluaran</button>
+      <button onclick="showPage('grafik')">Grafik</button>
+    </nav>
+
+    <!-- Halaman Transaksi -->
+    <div id="transaksi" class="page">
+      <h2>Tambah Transaksi</h2>
+      <div class="form-group">
+        <select id="game">
+          <option value="">-- Pilih Game --</option>
+          <option>Free Fire</option>
+          <option>Roblox</option>
+          <option>Mobile Legends</option>
+          <option>PUBG Mobile</option>
+          <option>CODM</option>
+          <option>FC Mobile</option>
+          <option>Honor of Kings</option>
+          <option>Guardian Tales</option>
+          <option>Super Sus</option>
+          <option>Stumble Guys</option>
+          <option>Genshin Impact</option>
+          <option>Honkai: Star Rail</option>
+          <option>Magic Chess Go Go</option>
+          <option>League of Legends</option>
+          <option>Valorant</option>
+        </select>
+        <input type="number" id="jumlah" placeholder="Jumlah Diamond">
+        <input type="number" id="supplier" placeholder="Harga Supplier (Rp)">
+        <input type="number" id="penjualan" placeholder="Harga Penjualan (Rp)">
+        <button onclick="tambahTransaksi()">Tambah</button>
+      </div>
+      <table id="tabel">
+        <thead>
+          <tr>
+            <th>Game</th>
+            <th>Jumlah</th>
+            <th>Supplier</th>
+            <th>Penjualan</th>
+            <th>Total Modal</th>
+            <th>Total Jual</th>
+            <th>Laba</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="total-box">
+        📦 Total Modal: Rp <span id="totalSupplier">0</span><br>
+        💰 Total Penjualan: Rp <span id="totalPenjualan">0</span><br>
+        🏆 Total Laba Bersih: Rp <span id="totalLaba">0</span>
+      </div>
     </div>
 
-    <table id="tabel">
-      <thead>
-        <tr>
-          <th>Game</th>
-          <th>Jumlah Diamond</th>
-          <th>Harga Supplier</th>
-          <th>Harga Penjualan</th>
-          <th>Total Supplier</th>
-          <th>Total Penjualan</th>
-          <th>Laba Bersih</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <div class="total-box">
-      📦 Total Supplier: Rp <span id="totalSupplier">0</span><br>
-      💰 Total Penjualan: Rp <span id="totalPenjualan">0</span><br>
-      🏆 Total Laba Bersih: Rp <span id="totalLaba">0</span>
+    <!-- Halaman Pengeluaran -->
+    <div id="pengeluaran" class="page" style="display:none;">
+      <h2>Tambah Pengeluaran</h2>
+      <div class="form-group">
+        <input type="text" id="ketPengeluaran" placeholder="Keterangan">
+        <input type="number" id="jumlahPengeluaran" placeholder="Jumlah (Rp)">
+        <button onclick="tambahPengeluaran()">Tambah</button>
+      </div>
+      <table id="tabelPengeluaran">
+        <thead>
+          <tr>
+            <th>Keterangan</th>
+            <th>Jumlah</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="total-box">
+        🔻 Total Pengeluaran: Rp <span id="totalPengeluaran">0</span>
+      </div>
     </div>
 
-    <button onclick="exportExcel()">📤 Export ke Excel</button>
+    <!-- Halaman Grafik -->
+    <div id="grafik" class="page" style="display:none;">
+      <h2>Laporan Grafik</h2>
+      <canvas id="myChart" width="400" height="200"></canvas>
+    </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script>
-    let totalSupplier = 0;
-    let totalPenjualan = 0;
-    let totalLaba = 0;
-
-    function tambahTransaksi() {
-      const game = document.getElementById("game").value;
-      const jumlah = parseInt(document.getElementById("jumlah").value);
-      const supplier = parseInt(document.getElementById("supplier").value);
-      const penjualan = parseInt(document.getElementById("penjualan").value);
-
-      if (!game || isNaN(jumlah) || isNaN(supplier) || isNaN(penjualan)) {
-        alert("Isi semua data dengan benar!");
-        return;
-      }
-
-      const totalS = jumlah * supplier;
-      const totalP = jumlah * penjualan;
-      const laba = totalP - totalS;
-
-      totalSupplier += totalS;
-      totalPenjualan += totalP;
-      totalLaba += laba;
-
-      const table = document.getElementById("tabel").getElementsByTagName("tbody")[0];
-      const row = table.insertRow();
-      row.insertCell(0).innerText = game;
-      row.insertCell(1).innerText = jumlah;
-      row.insertCell(2).innerText = "Rp " + supplier.toLocaleString();
-      row.insertCell(3).innerText = "Rp " + penjualan.toLocaleString();
-      row.insertCell(4).innerText = "Rp " + totalS.toLocaleString();
-      row.insertCell(5).innerText = "Rp " + totalP.toLocaleString();
-      row.insertCell(6).innerText = "Rp " + laba.toLocaleString();
-
-      document.getElementById("totalSupplier").innerText = totalSupplier.toLocaleString();
-      document.getElementById("totalPenjualan").innerText = totalPenjualan.toLocaleString();
-      document.getElementById("totalLaba").innerText = totalLaba.toLocaleString();
-
-      document.getElementById("game").value = "";
-      document.getElementById("jumlah").value = "";
-      document.getElementById("supplier").value = "";
-      document.getElementById("penjualan").value = "";
-    }
-
-    function exportExcel() {
-      const wb = XLSX.utils.table_to_book(document.getElementById("tabel"), {sheet:"Laporan"});
-      XLSX.writeFile(wb, "laporan_topup.xlsx");
-    }
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
