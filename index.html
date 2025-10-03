@@ -1,113 +1,253 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Manajemen Top Up Diamond</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diamond Manager — Top Up</title>
+
+  <!-- Font + CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js & SheetJS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
-  <div class="sidebar">
-    <h2>💎 Diamond Manager</h2>
-    <ul>
-      <li onclick="showPage('dashboard')">📊 Dashboard</li>
-      <li onclick="showPage('transaksi')">🛒 Transaksi</li>
-      <li onclick="showPage('pengeluaran')">💸 Pengeluaran</li>
-      <li onclick="showPage('kalkulator')">🧮 Kalkulator</li>
-      <li onclick="showPage('grafik')">📈 Grafik</li>
-    </ul>
-  </div>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">💎</div>
+      <div>
+        <div class="brand-title">Diamond Manager</div>
+        <div class="brand-sub">Top Up Admin</div>
+      </div>
+    </div>
 
-  <div class="content">
-    <!-- DASHBOARD -->
+    <nav class="menu">
+      <button class="menu-item active" data-page="dashboard">📊 Dashboard</button>
+      <button class="menu-item" data-page="transaksi">🛒 Transaksi</button>
+      <button class="menu-item" data-page="pengeluaran">💸 Pengeluaran</button>
+      <button class="menu-item" data-page="kalkulator">🧮 Kalkulator</button>
+      <button class="menu-item" data-page="grafik">📈 Grafik & Laporan</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button id="exportBtn" class="btn-ghost">⬇ Export Excel</button>
+      <small class="muted">Data tersimpan otomatis</small>
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- HEADER -->
+    <header class="topbar">
+      <div>
+        <h1>Diamond Manager</h1>
+        <p class="muted">Kelola transaksi top up — cepat, rapi & aman</p>
+      </div>
+      <div class="top-actions">
+        <button id="clearAll" class="btn-danger">Reset Semua</button>
+      </div>
+    </header>
+
+    <!-- PAGES -->
     <section id="dashboard" class="page active">
-      <h1>📊 Dashboard</h1>
-      <div class="summary">
-        📦 Produk: <span id="totalProduk">0</span> |
-        💎 Diamond: <span id="totalDiamond">0</span> |
-        🏷️ Supplier: Rp <span id="totalSupplier">0</span> |
-        💰 Modal: Rp <span id="totalModal">0</span> |
-        💵 Jual: Rp <span id="totalJual">0</span> |
-        📈 Laba: Rp <span id="totalLaba">0</span>
+      <div class="cards">
+        <div class="card">
+          <div class="card-title">Produk (Count)</div>
+          <div class="card-value" id="summaryCount">0</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Total Diamond</div>
+          <div class="card-value" id="summaryDiamond">0</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Total Supplier</div>
+          <div class="card-value" id="summarySupplier">Rp 0</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Total Modal</div>
+          <div class="card-value" id="summaryModal">Rp 0</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Total Jual</div>
+          <div class="card-value" id="summaryJual">Rp 0</div>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Laba Bersih (Net)</div>
+          <div class="card-value" id="summaryLaba">Rp 0</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h2>Ringkasan Produk</h2>
+        </div>
+        <div class="table-wrap">
+          <table id="tableSummary">
+            <thead>
+              <tr>
+                <th>Game</th>
+                <th>Diamond</th>
+                <th>Supplier</th>
+                <th>Modal</th>
+                <th>Jual</th>
+                <th>Laba</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
-    <!-- TRANSAKSI -->
     <section id="transaksi" class="page">
-      <h1>🛒 Input Transaksi</h1>
-      <select id="game">
-        <option value="">-- Pilih Game --</option>
-        <option>Free Fire</option>
-        <option>Mobile Legends</option>
-        <option>PUBG Mobile</option>
-        <option>Call of Duty Mobile</option>
-        <option>FC Mobile</option>
-        <option>Honor of Kings</option>
-        <option>Guardian Tales</option>
-        <option>Super Sus</option>
-        <option>Stumble Guys</option>
-        <option>Genshin Impact</option>
-        <option>Honkai Star Rail</option>
-        <option>Magic Chess Go</option>
-        <option>League of Legends</option>
-        <option>Valorant</option>
-        <option>Roblox</option>
-      </select>
-      <input type="number" id="jumlah" placeholder="Jumlah Diamond">
-      <input type="number" id="supplier" placeholder="Harga Supplier">
-      <input type="number" id="modal" placeholder="Modal">
-      <input type="number" id="jual" placeholder="Harga Jual">
-      <button onclick="tambahTransaksi()">Tambah</button>
+      <div class="section-grid">
+        <div class="form-card">
+          <h3>Tambah Transaksi Baru</h3>
+          <div class="form-row">
+            <label>Game</label>
+            <select id="gameInput">
+              <option value="">— Pilih Game —</option>
+              <option>Free Fire</option>
+              <option>Roblox</option>
+              <option>Mobile Legends</option>
+              <option>PUBG Mobile</option>
+              <option>Call of Duty Mobile</option>
+              <option>FC Mobile</option>
+              <option>Honor of Kings</option>
+              <option>Guardian Tales</option>
+              <option>Super Sus</option>
+              <option>Stumble Guys</option>
+              <option>Genshin Impact</option>
+              <option>Honkai Star Rail</option>
+              <option>Magic Chess Go Go</option>
+              <option>League of Legends</option>
+              <option>Valorant</option>
+            </select>
+          </div>
 
-      <table id="tabel">
-        <thead>
-          <tr>
-            <th>Game</th>
-            <th>Diamond</th>
-            <th>Supplier</th>
-            <th>Modal</th>
-            <th>Jual</th>
-            <th>Laba</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+          <div class="form-row two">
+            <div>
+              <label>Jumlah Diamond</label>
+              <input id="diamondInput" type="number" min="1" placeholder="contoh: 740">
+            </div>
+            <div>
+              <label>Supplier (Rp)</label>
+              <input id="supplierInput" type="number" min="0" placeholder="contoh: 92300">
+            </div>
+          </div>
+
+          <div class="form-row two">
+            <div>
+              <label>Modal (Rp)</label>
+              <input id="modalInput" type="number" min="0" placeholder="contoh: 93000">
+            </div>
+            <div>
+              <label>Harga Jual (Rp)</label>
+              <input id="jualInput" type="number" min="0" placeholder="contoh: 95000">
+            </div>
+          </div>
+
+          <div class="form-row actions">
+            <button id="addTransBtn" class="btn-primary">Tambah Transaksi</button>
+            <button id="addSample" class="btn-ghost">Isi Contoh</button>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <h3>Daftar Transaksi</h3>
+          <div class="table-wrap">
+            <table id="transTable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Game</th>
+                  <th>Diamond</th>
+                  <th>Supplier</th>
+                  <th>Modal</th>
+                  <th>Jual</th>
+                  <th>Laba</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- PENGELUARAN -->
     <section id="pengeluaran" class="page">
-      <h1>💸 Catat Pengeluaran</h1>
-      <input type="text" id="namaPengeluaran" placeholder="Nama Pengeluaran">
-      <input type="number" id="jumlahPengeluaran" placeholder="Jumlah (Rp)">
-      <button onclick="tambahPengeluaran()">Tambah</button>
+      <div class="section">
+        <h2>Catat Pengeluaran</h2>
+        <div class="form-row two">
+          <div>
+            <label>Nama Pengeluaran</label>
+            <input id="expenseName" type="text" placeholder="contoh: Iklan TikTok">
+          </div>
+          <div>
+            <label>Jumlah (Rp)</label>
+            <input id="expenseAmount" type="number" min="0" placeholder="contoh: 50000">
+          </div>
+        </div>
+        <div class="form-row actions">
+          <button id="addExpenseBtn" class="btn-primary">Tambah Pengeluaran</button>
+        </div>
 
-      <table id="tabelPengeluaran">
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>Jumlah</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+        <div class="table-wrap mt-12">
+          <table id="expenseTable">
+            <thead>
+              <tr><th>Nama</th><th>Jumlah</th><th>Aksi</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
-    <!-- KALKULATOR -->
     <section id="kalkulator" class="page">
-      <h1>🧮 Kalkulator</h1>
-      <input type="number" id="calcSupplier" placeholder="Harga Supplier">
-      <input type="number" id="calcJual" placeholder="Harga Jual">
-      <button onclick="hitungLaba()">Hitung</button>
-      <p id="hasilCalc"></p>
+      <div class="section">
+        <h2>Kalkulator Laba Cepat</h2>
+        <div class="form-row three">
+          <div>
+            <label>Supplier (Rp)</label>
+            <input id="calcSupplier" type="number" placeholder="contoh: 92300">
+          </div>
+          <div>
+            <label>Modal (Rp)</label>
+            <input id="calcModal" type="number" placeholder="contoh: 93000">
+          </div>
+          <div>
+            <label>Harga Jual (Rp)</label>
+            <input id="calcJual" type="number" placeholder="contoh: 95000">
+          </div>
+        </div>
+        <div class="form-row actions">
+          <button id="btnCalc" class="btn-primary">Hitung Laba</button>
+          <button id="btnClearCalc" class="btn-ghost">Reset</button>
+        </div>
+        <div class="result-box" id="calcResult">Hasil akan muncul di sini.</div>
+      </div>
     </section>
 
-    <!-- GRAFIK -->
     <section id="grafik" class="page">
-      <h1>📈 Grafik</h1>
-      <canvas id="chartPenjualan"></canvas>
+      <div class="section">
+        <h2>Grafik & Laporan</h2>
+        <div class="chart-wrap">
+          <canvas id="mainChart" height="160"></canvas>
+        </div>
+        <div class="form-row actions mt-12">
+          <button id="exportExcelBtn" class="btn-primary">Export Laporan ke Excel</button>
+        </div>
+      </div>
     </section>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <footer class="footer">
+      <small>© Diamond Manager — dibuat untuk mempermudah pengelolaan top up</small>
+    </footer>
+  </main>
+
   <script src="script.js"></script>
 </body>
-                                                        </html>
+            </html>
