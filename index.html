@@ -7,27 +7,27 @@
     body {
       font-family: "Poppins", sans-serif;
       margin: 0; padding: 0;
-      background: linear-gradient(135deg, #2b4eff, #00c6ff);
+      background: linear-gradient(135deg, #00c6ff, #2b4eff);
       color: #333;
     }
     .container {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 40px auto;
       background: #fff;
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
     }
     h1 {
       text-align: center;
       color: #2b4eff;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
     .form-group {
       display: flex;
       flex-wrap: wrap;
       gap: 15px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       justify-content: center;
     }
     select, input {
@@ -64,7 +64,7 @@
       color: white;
     }
     .total-box {
-      margin-top: 20px;
+      margin-top: 25px;
       font-weight: bold;
       font-size: 18px;
       background: #f1f5ff;
@@ -97,8 +97,8 @@
         <option>Valorant</option>
       </select>
       <input type="number" id="jumlah" placeholder="Jumlah Diamond">
-      <input type="number" id="modal" placeholder="Harga Modal (Rp)">
-      <input type="number" id="jual" placeholder="Harga Jual (Rp)">
+      <input type="number" id="supplier" placeholder="Harga Supplier (Rp)">
+      <input type="number" id="penjualan" placeholder="Harga Penjualan (Rp)">
       <button onclick="tambahTransaksi()">Tambah</button>
     </div>
 
@@ -107,20 +107,20 @@
         <tr>
           <th>Game</th>
           <th>Jumlah Diamond</th>
-          <th>Harga Modal</th>
-          <th>Harga Jual</th>
-          <th>Total Modal</th>
-          <th>Total Jual</th>
-          <th>Untung</th>
+          <th>Harga Supplier</th>
+          <th>Harga Penjualan</th>
+          <th>Total Supplier</th>
+          <th>Total Penjualan</th>
+          <th>Laba Bersih</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
 
     <div class="total-box">
-      💰 Total Modal: Rp <span id="totalModal">0</span><br>
-      📈 Total Penjualan: Rp <span id="totalPenjualan">0</span><br>
-      🏆 Total Untung: Rp <span id="totalUntung">0</span>
+      📦 Total Supplier: Rp <span id="totalSupplier">0</span><br>
+      💰 Total Penjualan: Rp <span id="totalPenjualan">0</span><br>
+      🏆 Total Laba Bersih: Rp <span id="totalLaba">0</span>
     </div>
 
     <button onclick="exportExcel()">📤 Export ke Excel</button>
@@ -128,47 +128,47 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script>
-    let totalModal = 0;
+    let totalSupplier = 0;
     let totalPenjualan = 0;
-    let totalUntung = 0;
+    let totalLaba = 0;
 
     function tambahTransaksi() {
       const game = document.getElementById("game").value;
       const jumlah = parseInt(document.getElementById("jumlah").value);
-      const modal = parseInt(document.getElementById("modal").value);
-      const jual = parseInt(document.getElementById("jual").value);
+      const supplier = parseInt(document.getElementById("supplier").value);
+      const penjualan = parseInt(document.getElementById("penjualan").value);
 
-      if (!game || isNaN(jumlah) || isNaN(modal) || isNaN(jual)) {
+      if (!game || isNaN(jumlah) || isNaN(supplier) || isNaN(penjualan)) {
         alert("Isi semua data dengan benar!");
         return;
       }
 
-      const totalM = jumlah * modal;
-      const totalJ = jumlah * jual;
-      const untung = totalJ - totalM;
+      const totalS = jumlah * supplier;
+      const totalP = jumlah * penjualan;
+      const laba = totalP - totalS;
 
-      totalModal += totalM;
-      totalPenjualan += totalJ;
-      totalUntung += untung;
+      totalSupplier += totalS;
+      totalPenjualan += totalP;
+      totalLaba += laba;
 
       const table = document.getElementById("tabel").getElementsByTagName("tbody")[0];
       const row = table.insertRow();
       row.insertCell(0).innerText = game;
       row.insertCell(1).innerText = jumlah;
-      row.insertCell(2).innerText = "Rp " + modal.toLocaleString();
-      row.insertCell(3).innerText = "Rp " + jual.toLocaleString();
-      row.insertCell(4).innerText = "Rp " + totalM.toLocaleString();
-      row.insertCell(5).innerText = "Rp " + totalJ.toLocaleString();
-      row.insertCell(6).innerText = "Rp " + untung.toLocaleString();
+      row.insertCell(2).innerText = "Rp " + supplier.toLocaleString();
+      row.insertCell(3).innerText = "Rp " + penjualan.toLocaleString();
+      row.insertCell(4).innerText = "Rp " + totalS.toLocaleString();
+      row.insertCell(5).innerText = "Rp " + totalP.toLocaleString();
+      row.insertCell(6).innerText = "Rp " + laba.toLocaleString();
 
-      document.getElementById("totalModal").innerText = totalModal.toLocaleString();
+      document.getElementById("totalSupplier").innerText = totalSupplier.toLocaleString();
       document.getElementById("totalPenjualan").innerText = totalPenjualan.toLocaleString();
-      document.getElementById("totalUntung").innerText = totalUntung.toLocaleString();
+      document.getElementById("totalLaba").innerText = totalLaba.toLocaleString();
 
       document.getElementById("game").value = "";
       document.getElementById("jumlah").value = "";
-      document.getElementById("modal").value = "";
-      document.getElementById("jual").value = "";
+      document.getElementById("supplier").value = "";
+      document.getElementById("penjualan").value = "";
     }
 
     function exportExcel() {
