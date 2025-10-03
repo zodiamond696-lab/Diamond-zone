@@ -2,98 +2,112 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Manajemen Top Up Diamond zone</title>
+  <title>Manajemen Top Up Diamond</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>💎 Manajemen Top Up Diamond zone</h1>
+  <div class="sidebar">
+    <h2>💎 Diamond Manager</h2>
+    <ul>
+      <li onclick="showPage('dashboard')">📊 Dashboard</li>
+      <li onclick="showPage('transaksi')">🛒 Transaksi</li>
+      <li onclick="showPage('pengeluaran')">💸 Pengeluaran</li>
+      <li onclick="showPage('kalkulator')">🧮 Kalkulator</li>
+      <li onclick="showPage('grafik')">📈 Grafik</li>
+    </ul>
+  </div>
 
-    <!-- Menu Navigasi -->
-    <nav>
-      <button onclick="showPage('transaksi')">Transaksi</button>
-      <button onclick="showPage('pengeluaran')">Pengeluaran</button>
-      <button onclick="showPage('grafik')">Grafik</button>
-    </nav>
-
-    <!-- Halaman Transaksi -->
-    <div id="transaksi" class="page">
-      <h2>Tambah Transaksi</h2>
-      <div class="form-group">
-        <select id="game">
-          <option value="">-- Pilih Game --</option>
-          <option>Free Fire</option>
-          <option>Roblox</option>
-          <option>Mobile Legends</option>
-          <option>PUBG Mobile</option>
-          <option>CODM</option>
-          <option>FC Mobile</option>
-          <option>Honor of Kings</option>
-          <option>Guardian Tales</option>
-          <option>Super Sus</option>
-          <option>Stumble Guys</option>
-          <option>Genshin Impact</option>
-          <option>Honkai: Star Rail</option>
-          <option>Magic Chess Go Go</option>
-          <option>League of Legends</option>
-          <option>Valorant</option>
-        </select>
-        <input type="number" id="jumlah" placeholder="Jumlah Diamond">
-        <input type="number" id="supplier" placeholder="Harga Supplier (Rp)">
-        <input type="number" id="penjualan" placeholder="Harga Penjualan (Rp)">
-        <button onclick="tambahTransaksi()">Tambah</button>
+  <div class="content">
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page active">
+      <h1>📊 Dashboard</h1>
+      <div class="summary">
+        📦 Produk: <span id="totalProduk">0</span> |
+        💎 Diamond: <span id="totalDiamond">0</span> |
+        🏷️ Supplier: Rp <span id="totalSupplier">0</span> |
+        💰 Modal: Rp <span id="totalModal">0</span> |
+        💵 Jual: Rp <span id="totalJual">0</span> |
+        📈 Laba: Rp <span id="totalLaba">0</span>
       </div>
+    </section>
+
+    <!-- TRANSAKSI -->
+    <section id="transaksi" class="page">
+      <h1>🛒 Input Transaksi</h1>
+      <select id="game">
+        <option value="">-- Pilih Game --</option>
+        <option>Free Fire</option>
+        <option>Mobile Legends</option>
+        <option>PUBG Mobile</option>
+        <option>Call of Duty Mobile</option>
+        <option>FC Mobile</option>
+        <option>Honor of Kings</option>
+        <option>Guardian Tales</option>
+        <option>Super Sus</option>
+        <option>Stumble Guys</option>
+        <option>Genshin Impact</option>
+        <option>Honkai Star Rail</option>
+        <option>Magic Chess Go</option>
+        <option>League of Legends</option>
+        <option>Valorant</option>
+        <option>Roblox</option>
+      </select>
+      <input type="number" id="jumlah" placeholder="Jumlah Diamond">
+      <input type="number" id="supplier" placeholder="Harga Supplier">
+      <input type="number" id="modal" placeholder="Modal">
+      <input type="number" id="jual" placeholder="Harga Jual">
+      <button onclick="tambahTransaksi()">Tambah</button>
+
       <table id="tabel">
         <thead>
           <tr>
             <th>Game</th>
-            <th>Jumlah</th>
+            <th>Diamond</th>
             <th>Supplier</th>
-            <th>Penjualan</th>
-            <th>Total Modal</th>
-            <th>Total Jual</th>
+            <th>Modal</th>
+            <th>Jual</th>
             <th>Laba</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
-      <div class="total-box">
-        📦 Total Modal: Rp <span id="totalSupplier">0</span><br>
-        💰 Total Penjualan: Rp <span id="totalPenjualan">0</span><br>
-        🏆 Total Laba Bersih: Rp <span id="totalLaba">0</span>
-      </div>
-    </div>
+    </section>
 
-    <!-- Halaman Pengeluaran -->
-    <div id="pengeluaran" class="page" style="display:none;">
-      <h2>Tambah Pengeluaran</h2>
-      <div class="form-group">
-        <input type="text" id="ketPengeluaran" placeholder="Keterangan">
-        <input type="number" id="jumlahPengeluaran" placeholder="Jumlah (Rp)">
-        <button onclick="tambahPengeluaran()">Tambah</button>
-      </div>
+    <!-- PENGELUARAN -->
+    <section id="pengeluaran" class="page">
+      <h1>💸 Catat Pengeluaran</h1>
+      <input type="text" id="namaPengeluaran" placeholder="Nama Pengeluaran">
+      <input type="number" id="jumlahPengeluaran" placeholder="Jumlah (Rp)">
+      <button onclick="tambahPengeluaran()">Tambah</button>
+
       <table id="tabelPengeluaran">
         <thead>
           <tr>
-            <th>Keterangan</th>
+            <th>Nama</th>
             <th>Jumlah</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
-      <div class="total-box">
-        🔻 Total Pengeluaran: Rp <span id="totalPengeluaran">0</span>
-      </div>
-    </div>
+    </section>
 
-    <!-- Halaman Grafik -->
-    <div id="grafik" class="page" style="display:none;">
-      <h2>Laporan Grafik</h2>
-      <canvas id="myChart" width="400" height="200"></canvas>
-    </div>
+    <!-- KALKULATOR -->
+    <section id="kalkulator" class="page">
+      <h1>🧮 Kalkulator</h1>
+      <input type="number" id="calcSupplier" placeholder="Harga Supplier">
+      <input type="number" id="calcJual" placeholder="Harga Jual">
+      <button onclick="hitungLaba()">Hitung</button>
+      <p id="hasilCalc"></p>
+    </section>
+
+    <!-- GRAFIK -->
+    <section id="grafik" class="page">
+      <h1>📈 Grafik</h1>
+      <canvas id="chartPenjualan"></canvas>
+    </section>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
-</html>
+                                                        </html>
