@@ -3,203 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diamond Zone - Top Up Game Murah dan Terpercaya</title>
+    <title>Manajemen Keuangan Bisnis Diamond zone</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="logo">
-            <img src="logo_placeholder.png" alt="Diamond Zone Logo" class="logo-img">
-            <span class="logo-text">Diamond Zone</span>
-        </div>
-        <nav class="nav-links">
-            <a href="#home">Top Up</a>
-            <a href="#transaction">Cek Transaksi</a>
-            <a href="#leaderboard">Leaderboard</a>
-            <a href="#login" class="btn-primary">Masuk / Daftar</a>
+    <aside id="sidebar">
+        <div class="logo">FINANCE APP</div>
+        <nav>
+            <a href="#dashboard" class="active" data-section="dashboard">📊 Dashboard</a>
+            <a href="#penjualan" data-section="penjualan">🛒 Penjualan</a>
+            <a href="#pendapatan" data-section="pendapatan">💰 Pendapatan</a>
+            <a href="#pengeluaran" data-section="pengeluaran">💸 Pengeluaran</a>
+            <a href="#laporan" data-section="laporan">📄 Laporan (Export)</a>
         </nav>
-    </header>
+    </aside>
 
-    <main class="container">
-
-        <section id="homepage" class="page-section active">
-            <div class="hero-banner">
-                <img src="banner_placeholder_mlbb.jpg" alt="MLBB Lunox Banner">
+    <main id="main-content">
+        <section id="dashboard" class="content-section active">
+            <h1>Dashboard Keuangan</h1>
+            <div class="summary-cards">
+                <div class="card card-penjualan">
+                    <p>Total Penjualan</p>
+                    <h2 id="total-penjualan">Rp 0</h2>
+                </div>
+                <div class="card card-pendapatan">
+                    <p>Total Pendapatan (Termasuk Penjualan)</p>
+                    <h2 id="total-pendapatan">Rp 0</h2>
+                </div>
+                <div class="card card-pengeluaran">
+                    <p>Total Pengeluaran</p>
+                    <h2 id="total-pengeluaran">Rp 0</h2>
+                </div>
+                <div class="card card-laba">
+                    <p>Laba Bersih</p>
+                    <h2 id="laba-bersih">Rp 0</h2>
+                </div>
             </div>
-
-            <h2 class="section-title">✨ POPULER SEKARANG!</h2>
-            <div class="game-cards">
-                <div class="card game-card" data-game="mobile-legends">
-                    <img src="icon_mlbb.png" alt="Mobile Legends">
-                    <p>Mobile Legends</p>
-                </div>
-                <div class="card game-card" data-game="roblox">
-                    <img src="icon_roblox.png" alt="Roblox">
-                    <p>ROBLOX VOUCHER</p>
-                </div>
-                <div class="card game-card" id="free-fire-card" data-game="free-fire">
-                    <img src="icon_ff.png" alt="Free Fire">
-                    <p>Free Fire</p>
-                </div>
-                </div>
-
-            <h2 class="section-title">🔝 Top Up Games</h2>
-            <div class="game-cards grid-4">
-                <div class="card game-card">...</div>
-                <div class="card game-card">...</div>
-                <div class="card game-card">...</div>
-                <div class="card game-card">...</div>
-                <div class="card game-card">...</div>
-                <div class="card game-card">...</div>
+            
+            <div class="chart-container">
+                <h2>Grafik Penjualan Bulanan</h2>
+                <canvas id="salesChart"></canvas>
             </div>
         </section>
 
-        <section id="purchase-page" class="page-section hidden">
-            <div class="game-header">
-                <img src="banner_placeholder_ff.jpg" alt="Free Fire Banner" class="game-banner">
-                <div class="game-info">
-                    <h1>FREE FIRE</h1>
-                    <p>Garena</p>
-                    <div class="guarantees">
-                        <span>✅ Jaminan Layanan</span>
-                        <span>✅ Pembayaran Aman</span>
-                        <span>✅ Proses Cepat & Otomatis</span>
-                    </div>
-                </div>
-            </div>
+        <section id="penjualan" class="content-section hidden">
+            <h2>Input Data Penjualan</h2>
+            <form id="form-penjualan" class="input-form">
+                <input type="date" id="tgl-penjualan" required>
+                <input type="text" id="produk" placeholder="Nama Produk" required>
+                <input type="number" id="jumlah-produk" placeholder="Jumlah Produk" min="1" required>
+                <input type="number" id="harga-satuan" placeholder="Harga Satuan (Rp)" min="0" required>
+                <input type="text" id="total-harga" placeholder="Total Harga (Otomatis)" readonly>
+                <button type="submit" class="btn-primary">Tambah Penjualan</button>
+            </form>
 
-            <div class="purchase-form">
-                <div class="step">
-                    <span class="step-num">1</span>
-                    <h2>Masukkan Data Akun</h2>
-                    <input type="text" id="user-id" placeholder="Masukkan ID Akun" required>
-                </div>
+            <h3>Riwayat Penjualan</h3>
+            <table id="table-penjualan" class="data-table">
+                <thead>
+                    <tr><th>Tanggal</th><th>Produk</th><th>Jumlah</th><th>Harga Total</th><th>Aksi</th></tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </section>
 
-                <div class="step">
-                    <span class="step-num">2</span>
-                    <h2>Pilih Nominal</h2>
-                    <div class="diamond-options">
-                        <label class="option-card selected" data-price="817" data-qty="5">
-                            5 Diamonds
-                            <span class="price">Rp 817</span>
-                        </label>
-                        <label class="option-card" data-price="1633" data-qty="10">
-                            10 Diamonds
-                            <span class="price">Rp 1.633</span>
-                        </label>
-                        <label class="option-card" data-price="3266" data-qty="20">
-                            20 Diamonds
-                            <span class="price">Rp 3.266</span>
-                        </label>
-                        <label class="option-card" data-price="4899" data-qty="30">
-                            30 Diamonds
-                            <span class="price">Rp 4.899</span>
-                        </label>
-                        </div>
-                </div>
+        <section id="pendapatan" class="content-section hidden">
+            <h2>Input Data Pendapatan Tambahan</h2>
+            <form id="form-pendapatan" class="input-form">
+                <input type="date" id="tgl-pendapatan" required>
+                <input type="text" id="sumber-pendapatan" placeholder="Sumber Pendapatan (Contoh: Bunga bank)" required>
+                <input type="number" id="jumlah-pendapatan" placeholder="Jumlah (Rp)" min="0" required>
+                <button type="submit" class="btn-primary">Tambah Pendapatan</button>
+            </form>
 
-                <div class="step">
-                    <span class="step-num">3</span>
-                    <h2>Masukkan Jumlah Pembelian</h2>
-                    <div class="qty-input">
-                        <button id="qty-minus">-</button>
-                        <input type="number" id="purchase-qty" value="1" min="1" readonly>
-                        <button id="qty-plus">+</button>
-                    </div>
-                </div>
-
-                <div class="step">
-                    <span class="step-num">4</span>
-                    <h2>Kode Promo</h2>
-                    <div class="promo-input">
-                        <input type="text" id="promo-code" placeholder="Ketik Kode Promo Kamu">
-                        <button class="btn-secondary">Gunakan</button>
-                    </div>
-                </div>
-
-                <div class="step">
-                    <span class="step-num">5</span>
-                    <h2>Pilih Pembayaran</h2>
-                    <div class="payment-options">
-                        <label class="payment-card selected">
-                            <input type="radio" name="payment-method" value="qris" checked>
-                            QRIS (All Payment)
-                            <span class="best-price">BEST PRICE</span>
-                        </label>
-                        <label class="payment-card">
-                            <input type="radio" name="payment-method" value="dana">
-                            DANA / OVO / GoPay
-                        </label>
-                        </div>
-                </div>
-                
-                <div class="step">
-                    <span class="step-num">6</span>
-                    <h2>Detail Kontak</h2>
-                    <input type="email" id="contact-email" placeholder="example@gmail.com">
-                    <input type="tel" id="contact-whatsapp" placeholder="No. WhatsApp (+62...)">
-                </div>
-
-            </div>
+            <h3>Riwayat Pendapatan Tambahan</h3>
+            <table id="table-pendapatan" class="data-table">
+                <thead>
+                    <tr><th>Tanggal</th><th>Sumber</th><th>Jumlah</th><th>Aksi</th></tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
         </section>
         
-        <div id="purchase-action-bar" class="action-bar hidden">
-            <div class="total-info">
-                <p>Total:</p>
-                <p id="total-price" class="total-price">Rp 817</p>
-            </div>
-            <button id="btn-pesan-sekarang" class="btn-pesan-sekarang">
-                Pesan Sekarang!
-            </button>
-        </div>
+        <section id="pengeluaran" class="content-section hidden">
+            <h2>Input Data Pengeluaran</h2>
+            <form id="form-pengeluaran" class="input-form">
+                <input type="date" id="tgl-pengeluaran" required>
+                <input type="text" id="keterangan-pengeluaran" placeholder="Keterangan (Contoh: Gaji Karyawan)" required>
+                <input type="number" id="jumlah-pengeluaran" placeholder="Jumlah (Rp)" min="0" required>
+                <button type="submit" class="btn-primary">Tambah Pengeluaran</button>
+            </form>
 
+            <h3>Riwayat Pengeluaran</h3>
+            <table id="table-pengeluaran" class="data-table">
+                <thead>
+                    <tr><th>Tanggal</th><th>Keterangan</th><th>Jumlah</th><th>Aksi</th></tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </section>
+
+        <section id="laporan" class="content-section hidden">
+            <h2>Laporan & Export Data</h2>
+            <p>Silakan pilih jenis data yang ingin Anda export:</p>
+            <div class="flex-actions">
+                <button class="btn-export" onclick="exportData('penjualan')">Export Penjualan (CSV)</button>
+                <button class="btn-export" onclick="exportData('pendapatan')">Export Pendapatan (CSV)</button>
+                <button class="btn-export" onclick="exportData('pengeluaran')">Export Pengeluaran (CSV)</button>
+            </div>
+            <p class="mt-4 text-sm text-gray-600">*Catatan: Karena keterbatasan, fitur export ini dibuat dalam format CSV sederhana.</p>
+        </section>
     </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-about">
-                <p>Diamond Zone adalah Sahabat Para Gamers Dan Platform Top Up Game Termurah di Indonesia...</p>
-            </div>
-            <div class="footer-links">
-                <div>
-                    <h4>Peta Situs</h4>
-                    <ul>
-                        <li><a href="#">Beranda</a></li>
-                        <li><a href="#">Masuk</a></li>
-                        <li><a href="#">Cek Transaksi</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Dukungan</h4>
-                    <ul>
-                        <li><a href="#">WhatsApp</a></li>
-                        <li><a href="#">Email</a></li>
-                        <li><a href="#">Instagram</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Legalitas</h4>
-                    <ul>
-                        <li><a href="#">Kebijakan Pribadi</a></li>
-                        <li><a href="#">Syarat & Ketentuan</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Social Media</h4>
-                    <ul>
-                        <li><a href="#">Tiktok Diamond Zone</a></li>
-                        <li><a href="#">Instagram Diamond Zone</a></li>
-                        <li><a href="#">Discord Diamond Zone</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Diamond Zone. All Rights Reserved.</p>
-        </div>
-    </footer>
 
     <script src="script.js"></script>
 </body>
