@@ -1,253 +1,65 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Diamond Manager — Top Up</title>
-
-  <!-- Font + CSS -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diamond Zone | Top Up Game Murah & Cepat</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Chart.js & SheetJS -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link rel="icon" href="logo.png">
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="logo">💎</div>
-      <div>
-        <div class="brand-title">Diamond Manager</div>
-        <div class="brand-sub">Top Up Admin</div>
-      </div>
-    </div>
-
-    <nav class="menu">
-      <button class="menu-item active" data-page="dashboard">📊 Dashboard</button>
-      <button class="menu-item" data-page="transaksi">🛒 Transaksi</button>
-      <button class="menu-item" data-page="pengeluaran">💸 Pengeluaran</button>
-      <button class="menu-item" data-page="kalkulator">🧮 Kalkulator</button>
-      <button class="menu-item" data-page="grafik">📈 Grafik & Laporan</button>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">💎 DIAMOND ZONE</div>
+    <nav>
+      <ul>
+        <li><a href="#">Beranda</a></li>
+        <li><a href="#">All Game</a></li>
+        <li><a href="#">Voucher</a></li>
+        <li><a href="#">Kontak</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <div class="sidebar-footer">
-      <button id="exportBtn" class="btn-ghost">⬇ Export Excel</button>
-      <small class="muted">Data tersimpan otomatis</small>
+  <!-- Banner -->
+  <section class="banner">
+    <h1>Welcome to <span>Diamond Zone</span></h1>
+    <p>Top Up Game Murah, Cepat, & Terpercaya</p>
+  </section>
+
+  <!-- Paling Banyak Dibeli -->
+  <section class="popular">
+    <h2>🔥 PALING BANYAK DIBELI</h2>
+
+    <!-- Tombol Kategori -->
+    <div class="category-buttons">
+      <button class="active">All Game</button>
+      <button>Voucher</button>
     </div>
-  </aside>
 
-  <main class="main">
-    <!-- HEADER -->
-    <header class="topbar">
-      <div>
-        <h1>Diamond Manager</h1>
-        <p class="muted">Kelola transaksi top up — cepat, rapi & aman</p>
-      </div>
-      <div class="top-actions">
-        <button id="clearAll" class="btn-danger">Reset Semua</button>
-      </div>
-    </header>
+    <!-- Grid Game -->
+    <div class="game-grid">
+      <div class="game-card"><img src="img/ml.jpg" alt="Mobile Legends"><p>Mobile Legends</p></div>
+      <div class="game-card"><img src="img/ff.jpg" alt="Free Fire"><p>Free Fire</p></div>
+      <div class="game-card"><img src="img/roblox.jpg" alt="Roblox"><p>Roblox</p></div>
+      <div class="game-card"><img src="img/hok.jpg" alt="Honor of Kings"><p>Honor of Kings</p></div>
+      <div class="game-card"><img src="img/genshin.jpg" alt="Genshin Impact"><p>Genshin Impact</p></div>
+      <div class="game-card"><img src="img/supersus.jpg" alt="Super Sus"><p>Super Sus</p></div>
+      <div class="game-card"><img src="img/stumble.jpg" alt="Stumble Guys"><p>Stumble Guys</p></div>
+      <div class="game-card"><img src="img/honkai.jpg" alt="Honkai: Star Rail"><p>Honkai: Star Rail</p></div>
+      <div class="game-card"><img src="img/guardian.jpg" alt="Guardian Tales"><p>Guardian Tales</p></div>
+      <div class="game-card"><img src="img/valorant.jpg" alt="Valorant"><p>Valorant</p></div>
+      <div class="game-card"><img src="img/lol.jpg" alt="League of Legends"><p>League of Legends</p></div>
+      <div class="game-card"><img src="img/magicchess.jpg" alt="Magic Chess"><p>Magic Chess Go Go</p></div>
+      <div class="game-card"><img src="img/fcmobile.jpg" alt="FC Mobile"><p>FC Mobile</p></div>
+      <div class="game-card"><img src="img/codm.jpg" alt="COD Mobile"><p>COD Mobile</p></div>
+      <div class="game-card"><img src="img/pubg.jpg" alt="PUBG Mobile"><p>PUBG Mobile</p></div>
+    </div>
+  </section>
 
-    <!-- PAGES -->
-    <section id="dashboard" class="page active">
-      <div class="cards">
-        <div class="card">
-          <div class="card-title">Produk (Count)</div>
-          <div class="card-value" id="summaryCount">0</div>
-        </div>
-        <div class="card">
-          <div class="card-title">Total Diamond</div>
-          <div class="card-value" id="summaryDiamond">0</div>
-        </div>
-        <div class="card">
-          <div class="card-title">Total Supplier</div>
-          <div class="card-value" id="summarySupplier">Rp 0</div>
-        </div>
-        <div class="card">
-          <div class="card-title">Total Modal</div>
-          <div class="card-value" id="summaryModal">Rp 0</div>
-        </div>
-        <div class="card">
-          <div class="card-title">Total Jual</div>
-          <div class="card-value" id="summaryJual">Rp 0</div>
-        </div>
-        <div class="card highlight">
-          <div class="card-title">Laba Bersih (Net)</div>
-          <div class="card-value" id="summaryLaba">Rp 0</div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="section-header">
-          <h2>Ringkasan Produk</h2>
-        </div>
-        <div class="table-wrap">
-          <table id="tableSummary">
-            <thead>
-              <tr>
-                <th>Game</th>
-                <th>Diamond</th>
-                <th>Supplier</th>
-                <th>Modal</th>
-                <th>Jual</th>
-                <th>Laba</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section id="transaksi" class="page">
-      <div class="section-grid">
-        <div class="form-card">
-          <h3>Tambah Transaksi Baru</h3>
-          <div class="form-row">
-            <label>Game</label>
-            <select id="gameInput">
-              <option value="">— Pilih Game —</option>
-              <option>Free Fire</option>
-              <option>Roblox</option>
-              <option>Mobile Legends</option>
-              <option>PUBG Mobile</option>
-              <option>Call of Duty Mobile</option>
-              <option>FC Mobile</option>
-              <option>Honor of Kings</option>
-              <option>Guardian Tales</option>
-              <option>Super Sus</option>
-              <option>Stumble Guys</option>
-              <option>Genshin Impact</option>
-              <option>Honkai Star Rail</option>
-              <option>Magic Chess Go Go</option>
-              <option>League of Legends</option>
-              <option>Valorant</option>
-            </select>
-          </div>
-
-          <div class="form-row two">
-            <div>
-              <label>Jumlah Diamond</label>
-              <input id="diamondInput" type="number" min="1" placeholder="contoh: 740">
-            </div>
-            <div>
-              <label>Supplier (Rp)</label>
-              <input id="supplierInput" type="number" min="0" placeholder="contoh: 92300">
-            </div>
-          </div>
-
-          <div class="form-row two">
-            <div>
-              <label>Modal (Rp)</label>
-              <input id="modalInput" type="number" min="0" placeholder="contoh: 93000">
-            </div>
-            <div>
-              <label>Harga Jual (Rp)</label>
-              <input id="jualInput" type="number" min="0" placeholder="contoh: 95000">
-            </div>
-          </div>
-
-          <div class="form-row actions">
-            <button id="addTransBtn" class="btn-primary">Tambah Transaksi</button>
-            <button id="addSample" class="btn-ghost">Isi Contoh</button>
-          </div>
-        </div>
-
-        <div class="table-card">
-          <h3>Daftar Transaksi</h3>
-          <div class="table-wrap">
-            <table id="transTable">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Game</th>
-                  <th>Diamond</th>
-                  <th>Supplier</th>
-                  <th>Modal</th>
-                  <th>Jual</th>
-                  <th>Laba</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="pengeluaran" class="page">
-      <div class="section">
-        <h2>Catat Pengeluaran</h2>
-        <div class="form-row two">
-          <div>
-            <label>Nama Pengeluaran</label>
-            <input id="expenseName" type="text" placeholder="contoh: Iklan TikTok">
-          </div>
-          <div>
-            <label>Jumlah (Rp)</label>
-            <input id="expenseAmount" type="number" min="0" placeholder="contoh: 50000">
-          </div>
-        </div>
-        <div class="form-row actions">
-          <button id="addExpenseBtn" class="btn-primary">Tambah Pengeluaran</button>
-        </div>
-
-        <div class="table-wrap mt-12">
-          <table id="expenseTable">
-            <thead>
-              <tr><th>Nama</th><th>Jumlah</th><th>Aksi</th></tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section id="kalkulator" class="page">
-      <div class="section">
-        <h2>Kalkulator Laba Cepat</h2>
-        <div class="form-row three">
-          <div>
-            <label>Supplier (Rp)</label>
-            <input id="calcSupplier" type="number" placeholder="contoh: 92300">
-          </div>
-          <div>
-            <label>Modal (Rp)</label>
-            <input id="calcModal" type="number" placeholder="contoh: 93000">
-          </div>
-          <div>
-            <label>Harga Jual (Rp)</label>
-            <input id="calcJual" type="number" placeholder="contoh: 95000">
-          </div>
-        </div>
-        <div class="form-row actions">
-          <button id="btnCalc" class="btn-primary">Hitung Laba</button>
-          <button id="btnClearCalc" class="btn-ghost">Reset</button>
-        </div>
-        <div class="result-box" id="calcResult">Hasil akan muncul di sini.</div>
-      </div>
-    </section>
-
-    <section id="grafik" class="page">
-      <div class="section">
-        <h2>Grafik & Laporan</h2>
-        <div class="chart-wrap">
-          <canvas id="mainChart" height="160"></canvas>
-        </div>
-        <div class="form-row actions mt-12">
-          <button id="exportExcelBtn" class="btn-primary">Export Laporan ke Excel</button>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <small>© Diamond Manager — dibuat untuk mempermudah pengelolaan top up</small>
-    </footer>
-  </main>
-
-  <script src="script.js"></script>
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Diamond Zone — Dibuat oleh Saya</p>
+  </footer>
 </body>
-            </html>
+</html>
