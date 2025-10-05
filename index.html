@@ -1,65 +1,205 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diamond Zone | Top Up Game Murah & Cepat</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Zone - Top Up Diamond Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="logo">💎 DIAMOND ZONE</div>
-    <nav>
-      <ul>
-        <li><a href="#">Beranda</a></li>
-        <li><a href="#">All Game</a></li>
-        <li><a href="#">Voucher</a></li>
-        <li><a href="#">Kontak</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <img src="https://via.placeholder.com/40x40/FFD700/000000?text=DZ" alt="Diamond Zone Logo" class="logo">
+                <span class="brand-name">Diamond Zone</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="nav-item active">Top Up</a>
+                <a href="#" class="nav-item">Leaderboard</a>
+                <a href="#" class="nav-item">Artikel</a>
+                <a href="#" class="nav-item">Kalkulator</a>
+            </nav>
+            <div class="navbar-actions">
+                <button class="btn btn-primary">Masuk</button>
+                <button class="btn btn-secondary">Daftar</button>
+            </div>
+        </div>
+    </header>
 
-  <!-- Banner -->
-  <section class="banner">
-    <h1>Welcome to <span>Diamond Zone</span></h1>
-    <p>Top Up Game Murah, Cepat, & Terpercaya</p>
-  </section>
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-carousel">
+                    <div class="carousel-item active">
+                        <img src="https://via.placeholder.com/1000x300/6A5ACD/FFFFFF?text=PROMO+MOBILE+LEGENDS" alt="Promo Mobile Legends">
+                        <div class="carousel-caption">
+                            <h3>LUNOX NEW MPL SKIN "QUANTUM POLARITY"</h3>
+                            <p>Dapatkan sekarang dan jadilah yang pertama!</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://via.placeholder.com/1000x300/20B2AA/FFFFFF?text=PROMO+FREE+FIRE" alt="Promo Free Fire">
+                        <div class="carousel-caption">
+                            <h3>FREE FIRE ELITE PASS TERBARU</h3>
+                            <p>Jangan lewatkan keseruannya!</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control prev" onclick="moveCarousel(-1)">&#10094;</button>
+                <button class="carousel-control next" onclick="moveCarousel(1)">&#10095;</button>
+            </div>
+        </section>
 
-  <!-- Paling Banyak Dibeli -->
-  <section class="popular">
-    <h2>🔥 PALING BANYAK DIBELI</h2>
+        <section class="game-categories container">
+            <h2 class="section-title">Rekomendasi</h2>
+            <p class="section-subtitle">Berikut adalah beberapa produk yang kami rekomendasikan untuk kamu</p>
+            <div class="categories-grid">
+                <div class="category-item">
+                    <img src="https://via.placeholder.com/80x80/3CB371/FFFFFF?text=MLBB" alt="Mobile Legends">
+                    <span>Mobile Legends</span>
+                </div>
+                <div class="category-item">
+                    <img src="https://via.placeholder.com/80x80/FF8C00/FFFFFF?text=ROBLOX" alt="Roblox">
+                    <span>Roblox Voucher</span>
+                </div>
+                <div class="category-item">
+                    <img src="https://via.placeholder.com/80x80/DC143C/FFFFFF?text=FF" alt="Free Fire">
+                    <span>Free Fire</span>
+                </div>
+                 <div class="category-item">
+                    <img src="https://via.placeholder.com/80x80/4682B4/FFFFFF?text=PUBG" alt="PUBG Mobile">
+                    <span>PUBG Mobile</span>
+                </div>
+                <div class="category-item">
+                    <img src="https://via.placeholder.com/80x80/8A2BE2/FFFFFF?text=CODM" alt="Call of Duty Mobile">
+                    <span>COD Mobile</span>
+                </div>
+                 <div class="category-item">
+                    <img src="https://via.placeholder.com/80x80/20B2AA/FFFFFF?text=HOK" alt="Honor of Kings">
+                    <span>Honor of Kings</span>
+                </div>
+            </div>
+        </section>
 
-    <!-- Tombol Kategori -->
-    <div class="category-buttons">
-      <button class="active">All Game</button>
-      <button>Voucher</button>
-    </div>
+        <section class="popular-games container">
+            <h2 class="section-title">Populer Sekarang!</h2>
+            <p class="section-subtitle">Berikut adalah beberapa produk yang paling populer saat ini</p>
+            <div class="games-grid">
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=MLBB" alt="Mobile Legends">
+                    <span class="game-title">Mobile Legends</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=ROBLOX" alt="Roblox Voucher">
+                    <span class="game-title">Roblox Voucher</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=FF" alt="Free Fire">
+                    <span class="game-title">Free Fire</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=PUBG" alt="PUBG Mobile">
+                    <span class="game-title">PUBG Mobile</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=CODM" alt="Call of Duty Mobile">
+                    <span class="game-title">COD Mobile</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=HOK" alt="Honor of Kings">
+                    <span class="game-title">Honor of Kings</span>
+                </div>
+                 <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=MC" alt="Magic Chess">
+                    <span class="game-title">Magic Chess</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=FC" alt="FC Mobile">
+                    <span class="game-title">FC Mobile</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=HI3" alt="Honkai Impact 3rd">
+                    <span class="game-title">Honkai Impact 3rd</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=GT" alt="Guardian Tales">
+                    <span class="game-title">Guardian Tales</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=SS" alt="Super Sus">
+                    <span class="game-title">Super Sus</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=SG" alt="Stumble Guys">
+                    <span class="game-title">Stumble Guys</span>
+                </div>
+                <div class="game-card">
+                    <img src="https://via.placeholder.com/150x150/000000/FFD700?text=LOL" alt="LOL Wild Rift">
+                    <span class="game-title">LOL Wild Rift</span>
+                </div>
+            </div>
+        </section>
 
-    <!-- Grid Game -->
-    <div class="game-grid">
-      <div class="game-card"><img src="img/ml.jpg" alt="Mobile Legends"><p>Mobile Legends</p></div>
-      <div class="game-card"><img src="img/ff.jpg" alt="Free Fire"><p>Free Fire</p></div>
-      <div class="game-card"><img src="img/roblox.jpg" alt="Roblox"><p>Roblox</p></div>
-      <div class="game-card"><img src="img/hok.jpg" alt="Honor of Kings"><p>Honor of Kings</p></div>
-      <div class="game-card"><img src="img/genshin.jpg" alt="Genshin Impact"><p>Genshin Impact</p></div>
-      <div class="game-card"><img src="img/supersus.jpg" alt="Super Sus"><p>Super Sus</p></div>
-      <div class="game-card"><img src="img/stumble.jpg" alt="Stumble Guys"><p>Stumble Guys</p></div>
-      <div class="game-card"><img src="img/honkai.jpg" alt="Honkai: Star Rail"><p>Honkai: Star Rail</p></div>
-      <div class="game-card"><img src="img/guardian.jpg" alt="Guardian Tales"><p>Guardian Tales</p></div>
-      <div class="game-card"><img src="img/valorant.jpg" alt="Valorant"><p>Valorant</p></div>
-      <div class="game-card"><img src="img/lol.jpg" alt="League of Legends"><p>League of Legends</p></div>
-      <div class="game-card"><img src="img/magicchess.jpg" alt="Magic Chess"><p>Magic Chess Go Go</p></div>
-      <div class="game-card"><img src="img/fcmobile.jpg" alt="FC Mobile"><p>FC Mobile</p></div>
-      <div class="game-card"><img src="img/codm.jpg" alt="COD Mobile"><p>COD Mobile</p></div>
-      <div class="game-card"><img src="img/pubg.jpg" alt="PUBG Mobile"><p>PUBG Mobile</p></div>
-    </div>
-  </section>
+        <section class="about-us-section">
+            <div class="container">
+                <h2 class="section-title">Tentang Diamond Zone</h2>
+                <div class="about-content">
+                    <img src="https://via.placeholder.com/150x100/FFD700/000000?text=DZ" alt="Diamond Zone Logo" class="about-logo">
+                    <p>Diamond Zone adalah platform Top Up Diamond Game Termurah di Indonesia. Penuhi Kebutuhan Gaming Mu Bersama Diamond Zone. Kami berdedikasi untuk menyediakan layanan terbaik dan terus menerus inovatif untuk memenuhi kebutuhan gamers. Jangan lewatkan kesempatan untuk mengikuti kami di sosial media dan tetap update dengan informasi terbaru, tips, trik, dan promo-promo menarik lainnya. Jadilah bagian dari komunitas gamers terbesar dan terpercaya dengan Diamond Zone! Jangan Lupa Follow Sosial Media Kita Dapatkan info dan promo menarik yang akan terus mengalir untuk menambah kegembiraan dalam setiap game yang Anda mainkan. Diamond Zone, solusi one-stop untuk semua kebutuhan gaming Anda!</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Diamond Zone — Dibuat oleh Saya</p>
-  </footer>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Peta Situs</h3>
+                    <ul>
+                        <li><a href="#">Beranda</a></li>
+                        <li><a href="#">Masuk</a></li>
+                        <li><a href="#">Daftar</a></li>
+                        <li><a href="#">Cek Transaksi</a></li>
+                        <li><a href="#">Hubungi Kami</a></li>
+                        <li><a href="#">Ulasan</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Dukungan</h3>
+                    <ul>
+                        <li><a href="#">WhatsApp</a></li>
+                        <li><a href="#">Email</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legalitas</h3>
+                    <ul>
+                        <li><a href="#">Kebijakan Pribadi</a></li>
+                        <li><a href="#">Syarat & Ketentuan</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Social Media</h3>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-tiktok"></i> Tiktok Diamond Zone</a></li>
+                        <li><a href="#"><i class="fab fa-youtube"></i> Youtube Diamond Zone</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram Diamond Zone</a></li>
+                        <li><a href="#"><i class="fab fa-discord"></i> Discord Diamond Zone</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Diamond Zone. All rights reserved.</p>
+                <div class="customer-service">
+                    <i class="fas fa-headset"></i> CUSTOMER SERVICE
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
