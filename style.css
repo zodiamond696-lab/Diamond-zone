@@ -1,81 +1,170 @@
-:root{
-  --bg-1: #0f1724;
-  --accent-1: #2546ff;
-  --accent-2: #00d4ff;
-  --glass: rgba(255,255,255,0.06);
-  --muted: #9aa8c7;
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background: linear-gradient(180deg,#061021 0%, #092036 50%, #0f2546 100%); color:#eaf2ff}
-
-.sidebar{
-  width:280px; padding:24px; position:fixed; left:0; top:0; bottom:0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-  border-right: 1px solid rgba(255,255,255,0.04);
-  display:flex; flex-direction:column; justify-content:space-between;
+/* Body */
+body {
+  background: linear-gradient(180deg, #eaf3ff, #ffffff);
+  color: #222;
 }
 
-.brand{display:flex;gap:12px;align-items:center}
-.logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:26px}
-.brand-title{font-weight:700;color:#fff}
-.brand-sub{font-size:12px;color:var(--muted)}
-
-.menu{margin-top:20px;display:flex;flex-direction:column;gap:8px}
-.menu-item{
-  background:transparent;border:0;color:#dbe9ff;padding:12px 14px;border-radius:10px;text-align:left;font-weight:600;cursor:pointer;
-}
-.menu-item.active, .menu-item:hover{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));box-shadow:0 6px 18px rgba(0,0,0,0.3)}
-
-.sidebar-footer{display:flex;flex-direction:column;gap:8px}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dbe9ff;padding:8px;border-radius:8px;cursor:pointer}
-.btn-danger{background:#ff6b6b;color:white;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
-
-.main{margin-left:280px;padding:28px;min-height:100vh;display:flex;flex-direction:column;gap:18px}
-
-.topbar{display:flex;justify-content:space-between;align-items:center}
-.topbar h1{margin:0;color:#fff}
-.muted{color:var(--muted);font-size:13px}
-
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px}
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;color:#dfefff;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
-.card-title{font-size:13px;color:var(--muted);margin-bottom:6px}
-.card-value{font-size:18px;font-weight:700}
-.card.highlight{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#fff}
-
-.section{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px}
-.section-header{display:flex;align-items:center;justify-content:space-between}
-
-.table-wrap{overflow:auto;margin-top:12px;border-radius:10px}
-table{width:100%;border-collapse:collapse;background:transparent;color:#eaf2ff}
-th,td{padding:10px 12px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.03)}
-th{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));font-weight:600}
-
-.section-grid{display:grid;grid-template-columns:380px 1fr;gap:18px}
-.form-card{padding:16px;border-radius:12px}
-.form-row{margin-bottom:12px}
-.form-row.two{display:flex;gap:12px}
-.form-row.three{display:flex;gap:12px}
-.form-row.actions{display:flex;gap:10px;align-items:center}
-
-input,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#eaf2ff}
-input::placeholder{color:rgba(235,245,255,0.5)}
-
-.btn-primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:white;padding:10px 14px;border-radius:8px;border:none;cursor:pointer}
-.btn-primary:hover{filter:brightness(0.95)}
-
-.table-card{padding:12px;border-radius:12px}
-
-.mt-12{margin-top:12px}
-.actions button{min-width:140px}
-
-/* small screens */
-@media (max-width:900px){
-  .sidebar{display:none}
-  .main{margin-left:0;padding:14px}
-  .section-grid{grid-template-columns:1fr}
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #007bff;
+  color: white;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* footer */
-.footer{color:var(--muted);text-align:center;margin-top:12px}
-.result-box{margin-top:12px;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;color:#eaf2ff}
+.logo {
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+}
+
+.navbar li {
+  margin-left: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  color: #ffd700;
+}
+
+/* Banner */
+.banner {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #007bff, #00bfff);
+  color: white;
+  animation: fadeIn 1s ease;
+}
+
+.banner h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.banner span {
+  color: #ffd700;
+}
+
+.banner p {
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+/* Paling Banyak Dibeli */
+.popular {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.popular h2 {
+  margin-bottom: 20px;
+  color: #007bff;
+  font-weight: 700;
+}
+
+/* Tombol Kategori */
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+
+.category-buttons button {
+  background: #e0edff;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: 600;
+  color: #007bff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.category-buttons button:hover {
+  background: #007bff;
+  color: white;
+}
+
+.category-buttons .active {
+  background: #007bff;
+  color: white;
+}
+
+/* Grid Game */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 0 10px;
+  animation: fadeIn 0.8s ease;
+}
+
+.game-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.game-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.game-card p {
+  padding: 10px;
+  font-weight: 600;
+  font-size: 0.95em;
+}
+
+.game-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.game-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Animasi halus */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* Footer */
+footer {
+  background: #007bff;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 40px;
+  font-size: 0.9em;
+}
